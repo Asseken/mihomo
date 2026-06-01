@@ -988,7 +988,7 @@ func parseProxies(cfg *RawConfig) (proxies map[string]C.Proxy, providersMap map[
 	if err := validateDialerProxies(proxies); err != nil {
 		return nil, nil, err
 	}
-
+	SetProxyNameList(proxyList)
 	return proxies, providersMap, nil
 }
 
