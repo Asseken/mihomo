@@ -249,6 +249,10 @@ func getUpdateTime() (time time.Time, err error) {
 }
 
 func RegisterGeoUpdater() {
+	registerGeoUpdater(context.Background())
+}
+
+func registerGeoUpdater(ctx context.Context) {
 	if updateInterval <= 0 {
 		log.Errorln("[GEO] Invalid update interval: %d", updateInterval)
 		return
