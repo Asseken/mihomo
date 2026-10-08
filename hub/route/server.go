@@ -181,9 +181,7 @@ func start(cfg *Config) {
 			Handler: router(cfg.IsDebug, cfg.Secret, cfg.DohServer, cfg.Cors),
 		}
 		httpServer = server
-		if err = server.Serve(l); err != nil {
-			log.Errorln("External controller serve error: %s", err)
-		}
+		_ = server.Serve(l)
 	}
 }
 
@@ -365,7 +363,7 @@ func authentication(secret string) func(http.Handler) http.Handler {
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
-	render.JSON(w, r, render.M{"hello": "mihomo"})
+	render.JSON(w, r, render.M{"hello": "mihomo", "version": C.Version, "build": C.BuildTime, "MihomoName": C.MihomoName})
 }
 
 func traffic(w http.ResponseWriter, r *http.Request) {
@@ -570,5 +568,5 @@ func getLogs(w http.ResponseWriter, r *http.Request) {
 }
 
 func version(w http.ResponseWriter, r *http.Request) {
-	render.JSON(w, r, render.M{"meta": C.Meta, "version": C.Version})
+	render.JSON(w, r, render.M{"meta": C.Meta, "version": C.Version, "build": C.BuildTime, "MihomoName": C.MihomoName})
 }
